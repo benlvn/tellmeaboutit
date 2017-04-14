@@ -5,9 +5,9 @@ class profile(models.Model):
 	authenticated_user = models.OneToOneField(User, related_name="user_profile")
 
 class topic(models.Model):
-	posted_by = models.ManyToOneField(profile, related_name="topics_posted")
+	posted_by = models.ForeignKey(profile, related_name="topics_posted")
 
-	text = models.CharField()
+	text = models.CharField(max_length=100)
 
 	pub_date = models.DateTimeField()
 
