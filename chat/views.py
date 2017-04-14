@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth import authenticate, login, logout
+from datetime import datetime
 
 # Create your views here.
 
@@ -57,6 +58,14 @@ def register(request):
 		login(request, user)
 
 	return JsonResponse({'match':match, 'taken':taken})
+
+def newtopic(request):
+
+	text = request.GET.get('new-topic')
+	t = Topic(posted_by=request.user.user_profile, text=text, pub_date=datetime.now())
+	t.save()
+
+	return JsonResponse({'text':text})
 
 
 

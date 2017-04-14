@@ -4,8 +4,13 @@
 
 <h1>This is the homepage</h1>
 
+<form id="topic-proposal">
+	<input type="text" name="new-topic">
+	<input type="submit" value="Make a new topic">
+</form>
+
 {% for topic in all_topics %}
-	<p>{{topic.text}}</p>
+	{% include "chat/includes/topic.html" with topic=topic %}
 {% endfor %}
 
 {% endblock %}

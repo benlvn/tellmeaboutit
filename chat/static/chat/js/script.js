@@ -44,4 +44,17 @@ $(document).ready(function(){
 
 	})
 
+	$('#topic-proposal').submit(function(){
+		event.preventDefault()
+		var fields = {};
+		$('#topic-proposal').find(":input").each(function() {
+			fields[this.name] = $(this).val();
+		});
+
+
+		$.getJSON('/newtopic', fields, function(data){
+			location.reload()
+		});
+	})
+
 })
