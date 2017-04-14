@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<title>Login to Tell Me About It</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="static/chat/js/script.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<h3>Log in</h3>
+		<form id="login_form">
+			Username:<br>
+			<input type="text" name="username">
+			<br>
+			Password:<br>
+			<input type="text" name="password">
+			<br><br>
+			<input type="submit" value="Log in">
+		</form> 
+		<p style="display: none" id="invalid">Invalid Login</p>
+		<br><br><br>
+		<h3>Register</h3>
+		<form id="register_form">
+			Username:<br>
+			<input type="text" name="username">
+			<br>
+			Password:<br>
+			<input type="text" name="password">
+			<br>
+			Password:<br>
+			<input type="text" name="retype">
+			<br><br>
+			<input type="submit" value="Register">
+		</form> 
+		<p style="display: none" id="username_taken">Username taken</p><br>
+		<p style="display: none" id="passwords_unmatched">Passwords do not match<p>
+
+</html>

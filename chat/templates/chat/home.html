@@ -4,4 +4,8 @@
 
 <h1>This is the homepage</h1>
 
+{% for topic in all_topics %}
+	<p>{{topic.text}}</p>
+{% endfor %}
+
 {% endblock %}
