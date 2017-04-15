@@ -3,7 +3,7 @@
 	<p>{{topic.text}}</p>
 	<p>{{topic.posted_by.authenticated_user.username}}</p>
 	{% if topic.posted_by != request.user.user_profile %}
-		<a href="#">Start new chat</a>
+		<input type="button" value="Start new chat" name="newchat-{{topic.id}}">
 	{% endif %}
 
 </div>

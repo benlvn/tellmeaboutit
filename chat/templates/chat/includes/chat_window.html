@@ -1,0 +1,9 @@
+<div class="chat-window" id="chat-window-{{chat.id}}">
+	{% for message in chat.messages.all %}
+		<p>{{message.text}}</p>
+	{% endfor %}
+	<form id="newmessage-{{chat.id}}">
+		<input type="text" name="message">
+		<input type="submit" value="Send">
+	</form>
+</div>

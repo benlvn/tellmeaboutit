@@ -14,9 +14,10 @@ class Topic(models.Model):
 
 class Chat(models.Model):
 	topic = models.ForeignKey(Topic, related_name="chats")
-	outside_user = models.OneToOneField(User, related_name="chats_joined")
+	outside_user = models.ForeignKey(Profile, related_name="chats_joined")
 
 class Message(models.Model):
 	chat = models.ForeignKey(Chat, related_name="messages")
-	pub_date = models.CharField(max_length=500)
+	text = models.CharField(max_length=500)
+	pub_date = models.DateTimeField()
 	sender = models.ForeignKey(Profile, related_name="sent_messages")

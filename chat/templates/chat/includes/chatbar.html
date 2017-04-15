@@ -1,1 +1,5 @@
-<p>This is the chat bar</p>
+<div id="chatbar">
+	{% for chat in all_chats %}
+		<p>{{chat.message}}</p>
+	{% endfor %}
+</div>
