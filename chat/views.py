@@ -8,6 +8,10 @@ from django.db.models import Q
 
 # Create your views here.
 
+###
+### Pages
+###
+
 def home(request):
 	if request.user.is_authenticated:
 		all_topics = Topic.objects.all()
@@ -26,22 +30,11 @@ def login_page(request):
 		return HttpResponse("<h1>Hello</h1>")
 	return render(request, 'chat/login.html')
 
-def checklogin(request):
 
-	username = request.GET.get('username')
-	password = request.GET.get('password')
 
-	user = authenticate(username=username, password=password)
-	success = (user is not None)
-
-	if success:
-		login(request, user)
-
-	return JsonResponse({'success':success})
-
-def logout_pressed(request):
-	logout(request)
-	return redirect('/')
+###
+### Create new
+###
 
 def register(request):
 
@@ -64,7 +57,7 @@ def register(request):
 def newtopic(request):
 
 	text = request.GET.get('new-topic')
-	t = Topic(posted_by=request.user.user_profile, text=text, pub_date=datetime.now())
+	t = Topic(posted_by=request.user.user_profile, text=text, pub_date=datetime.now(), on_board=True)
 	t.save()
 
 	return JsonResponse({'text':text})
@@ -79,9 +72,6 @@ def newchat(request):
 
 	return JsonResponse({'chat-window': chat_window(request, chat)})
 
-def chat_window(request, chat):
-	return render_to_string('chat/includes/chat_window.html', {'chat': chat})
-
 def new_message(request):
 
 	text = request.GET.get('message')
@@ -92,15 +82,55 @@ def new_message(request):
 
 	return JsonResponse({'chat-window': chat_window(request, chat)})
 
+
+###
+### Render windows
+###
+
+def chat_window(request, chat):
+	return render_to_string('chat/includes/chat_window.html', {'chat': chat})
+
+def checklogin(request):
+
+	username = request.GET.get('username')
+	password = request.GET.get('password')
+
+	user = authenticate(username=username, password=password)
+	success = (user is not None)
+
+	if success:
+		login(request, user)
+
+	return JsonResponse({'success':success})
+
+def logout_pressed(request):
+	logout(request)
+	return redirect('/')
+
+
+
+###
+### Update Information
+###
+
 def updatechat(request):
 	all_chats = Chat.objects.filter(outside_user=request.user.user_profile) | Chat.objects.filter(topic__posted_by=request.user.user_profile)
-	
+
 	chat_windows = []
 	for chat in all_chats:
 		chat_windows.append(chat_window(request, chat))
 	
 
 	return JsonResponse({'chat-windows': chat_windows})
+
+def toggle_topic(request):
+	topic_id = request.GET.get('id')
+	t = Topic.objects.get(id=topic_id)
+	t.on_board = not t.on_board
+	t.save()
+
+	return JsonResponse({})
+
 
 
 

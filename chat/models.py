@@ -11,6 +11,7 @@ class Topic(models.Model):
 	text = models.CharField(max_length=100)
 
 	pub_date = models.DateTimeField()
+	on_board = models.BooleanField(default=True)
 
 class Chat(models.Model):
 	topic = models.ForeignKey(Topic, related_name="chats")
@@ -18,6 +19,6 @@ class Chat(models.Model):
 
 class Message(models.Model):
 	chat = models.ForeignKey(Chat, related_name="messages")
-	text = models.CharField(max_length=500)
+	text = models.CharField(max_length=500, default="Hello")
 	pub_date = models.DateTimeField()
 	sender = models.ForeignKey(Profile, related_name="sent_messages")

@@ -1,10 +1,21 @@
 {% block content %}
+
+{% if topic.posted_by == request.user.user_profile or topic.on_board%}
 <div style="border: 1px solid black" class="topic">
 	<p>{{topic.text}}</p>
 	<p>{{topic.posted_by.authenticated_user.username}}</p>
 	{% if topic.posted_by != request.user.user_profile %}
 		<input type="button" value="Start new chat" name="newchat-{{topic.id}}">
+	{% else %}
+		{% if topic.on_board %}
+			<input type="button" value="Take topic off board" name="toggle-topic-{{topic.id}}">
+		{% else %}
+			<input type="button" value="Put topic on board" name="toggle-topic-{{topic.id}}">
+		{% endif %}
+		
 	{% endif %}
 
 </div>
+{% endif %}
+
 {% endblock %}

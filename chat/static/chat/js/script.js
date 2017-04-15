@@ -84,25 +84,20 @@ $(document).ready(function(){
 	})
 
 	///
+	/// Hide topic
+	///
+
+	$("input[name^='toggle-topic']").click(function(){
+		id = $(this).attr('name').substr(13)
+		$.getJSON('/toggle-topic', {'id':id}, function(data){
+			location.reload()
+		})
+	})
+
+	///
 	/// Send message
 	///
-	/*
-	$("#chatbar").on('submit', function(){
-		event.preventDefault()
-		$form = $("form[id^='newmessage']")
-		id = $form.attr('id').substr(11)
 
-		var fields = {};
-		$form.find(":input").each(function() {
-			fields[this.name] = $(this).val();
-		});
-		fields['id'] = id
-		$.getJSON('/newmessage', fields, function(data){
-			$("#chat-window-" + id).replaceWith(data['chat-window'])
-
-		});
-	})
-	*/
 	$(document).delegate('form', 'submit', function(event) {
 		event.preventDefault()
 	    var $form = $(this);
@@ -122,7 +117,7 @@ $(document).ready(function(){
 
 
 	///
-	/// Update chat every 2 seconds
+	/// Update chat every 5 seconds
 	///
 
 	update_chats()

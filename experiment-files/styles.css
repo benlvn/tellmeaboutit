@@ -1,0 +1,122 @@
+body {
+	font-family: 'PT Sans';
+}
+
+#title-word:nth-child(1) {
+	color: #4170A5;
+}
+
+#title-word:nth-child(2) {
+	color: #FDBB56;
+}
+
+#title-word:nth-child(3) {
+	color: #B6EC50;
+}
+
+#title-word:nth-child(4) {
+	color: #CD4690;
+}
+
+#titletron {
+	padding-left: 30px;
+	padding-bottom: 10px;
+	margin-top: 50px;
+	padding: 10 20 10 20;
+}
+
+#navbar {
+	background-color: #638FC0;
+	font-size: 20px;
+	padding: 0 20 0 20;
+	font-family: Anton
+}
+
+.nav.navbar-nav li a {
+    color: #15457B;
+}
+
+.Anton {
+	font-family: Anton;
+}
+
+.Fjalla {
+	font-family: 'Fjalla One';
+}
+
+.topic {
+	border-radius: 10px;
+	border: 1px solid red;
+	text-align: left;
+	padding: 0 10 0 10;
+}
+
+.topics-col {
+	padding: 10 10 0 10;
+}
+
+#choose-color {
+	border: none;
+}
+
+#targ {
+	height: 30px;
+	border-radius: 0px;
+	border-top: 2px;
+	border-bottom: 2px;
+	background-color: white;
+}
+
+.textbox-button {
+	padding: 0 0 0 0;
+	overflow: hidden;
+    position: relative;
+}
+
+#pick-color {
+	height: 200%;
+	width: 50%;
+}
+
+.color-list {
+	height: 20px;
+}
+
+.color-list#blue{
+	background-color: #4170A5;
+}
+
+.color-list#orange{
+	background-color: #FDBB56;
+}
+
+.color-list#green{
+	background-color: #B6EC50;
+}
+
+.color-list#pink{
+	background-color: #CD4690;
+}
+
+.chat-bar {
+	height: 30px;
+	background-color: blue;
+   	bottom: 0;
+    width: 100%;
+    left: 0px;
+    position: fixed;
+}
+
+.chat-window{
+	height: 400px;
+	background-color: red;
+	width: 20%;
+	position: relative;
+	bottom: 400px;
+}
+
+.targ {
+	border: 1px solid red;
+	width: 30px;
+}
+

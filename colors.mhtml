@@ -1,0 +1,270 @@
+From: <Saved by Blink>
+Subject: Color palette by Paletton.com
+Date: Sun, 15 Apr 2017 19:36:21 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--gRhH1YWqptRJx58WOplkQBbheq79kJUYMhvVwIikEC----"
+
+------MultipartBoundary--gRhH1YWqptRJx58WOplkQBbheq79kJUYMhvVwIikEC----
+Content-Type: text/html
+Content-ID: <frame-4046-e0c0ce3b-fc2e-43bc-b4e6-3041ab97b22e@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://paletton.com/export/index.php
+
+<!DOCTYPE html><html class=3D"gr__paletton_com"><head><meta http-equiv=3D"C=
+ontent-Type" content=3D"text/html; charset=3DUTF-8">
+=09
+	<title>Color palette by Paletton.com</title>
+	<meta name=3D"generator" content=3D"Paletton.com">
+
+<style type=3D"text/css">
+
+/* Palette color codes */
+/* Feel free to copy&paste color codes to your application */
+
+.primary-1 { background-color: #DAF8A0 }
+.primary-2 { background-color: #C7F274 }
+.primary-0 { background-color: #B6EC50 }
+.primary-3 { background-color: #9DD82C }
+.primary-4 { background-color: #79B011 }
+
+.secondary-1-1 { background-color: #94B6DB }
+.secondary-1-2 { background-color: #638FC0 }
+.secondary-1-0 { background-color: #4170A5 }
+.secondary-1-3 { background-color: #295D98 }
+.secondary-1-4 { background-color: #15457B }
+
+.secondary-2-1 { background-color: #FFDCA5 }
+.secondary-2-2 { background-color: #FFCA7A }
+.secondary-2-0 { background-color: #FDBB56 }
+.secondary-2-3 { background-color: #E89F30 }
+.secondary-2-4 { background-color: #BD7A13 }
+
+.complement-1 { background-color: #EB98C6 }
+.complement-2 { background-color: #DC69A8 }
+.complement-0 { background-color: #CD4690 }
+.complement-3 { background-color: #BC2678 }
+.complement-4 { background-color: #990F5A }
+
+/* end */
+
+
+body {
+	margin:0; padding: 2em;
+	background: #fff;
+	color: #000;
+	font: 12px/1.33 "Segoe UI", "Helvetica Neue", Helvetica, sans-serif;
+	text-align:left;
+	}
+h1 {
+	margin: 0.5em 0;
+	font-size: 200%;
+	}
+p {
+	margin: 0.5em 0;
+	}
+
+.color-table {
+	margin: 2em 2em 5em;
+	border-collapse:collapse;
+	border:none;
+	border-spacing:0;
+	font-size:100%;
+	}
+.color-table th {
+	padding: 0 1em 0 0;
+	text-align: right;
+	vertical-align: middle;
+	font-size: 100%;
+	font-weight: normal;
+	border: none;
+	}
+.color-table td.sample {
+	width:6em; height:6em;
+	padding: 10px;
+	text-align:center;
+	vertical-align:middle;
+	font-size:90%;
+	border: 1px solid white;
+	white-space:nowrap;
+	}
+.color-table td.sample-0 {
+	width:18em;
+	}
+.color-table.small td.sample {
+	width:3em; height:3em;
+	padding:0;
+	border:none;
+	}
+.color-table.small td.sample-0 {
+	width:9em;
+	}
+.color-table .white { margin-bottom:0.2em; color:white }
+.color-table .black { margin-top:0.2em; color:black }
+
+hr {
+	margin: 2em 0 1em 0;
+	border:none;
+	border-bottom:1px solid silver;
+	}
+#footer {
+	padding:1em;
+	text-align:center;
+	font-size:80%;
+	}
+
+</style>
+
+</head>
+<body data-gr-c-s-loaded=3D"true">
+
+<h1>Color Palette by Paletton.com</h1>
+<p>Palette URL: <a href=3D"http://paletton.com/#uid=3D72n1f0kl7vNbiO9gKEdps=
+t9sPnI">http://paletton.com/#uid=3D72n1f0kl7vNbiO9gKEdpst9sPnI</a></p>
+
+<table class=3D"color-table">
+	<tbody><tr>
+		<th>Primary color:</th>
+		<td class=3D"sample sample-1 primary-1">
+			<div class=3D"white">#DAF8A0</div>
+			<div class=3D"black">#DAF8A0</div>
+		</td>
+		<td class=3D"sample sample-2 primary-2">
+			<div class=3D"white">#C7F274</div>
+			<div class=3D"black">#C7F274</div>
+		</td>
+		<td class=3D"sample sample-0 primary-0">
+			<div class=3D"white">#B6EC50</div>
+			<div class=3D"black">#B6EC50</div>
+		</td>
+		<td class=3D"sample sample-3 primary-3">
+			<div class=3D"white">#9DD82C</div>
+			<div class=3D"black">#9DD82C</div>
+		</td>
+		<td class=3D"sample sample-4 primary-4">
+			<div class=3D"white">#79B011</div>
+			<div class=3D"black">#79B011</div>
+		</td>
+	</tr>
+	<tr>
+		<th>Secondary color (1):</th>
+		<td class=3D"sample sample-1 secondary-1-1">
+			<div class=3D"white">#94B6DB</div>
+			<div class=3D"black">#94B6DB</div>
+		</td>
+		<td class=3D"sample sample-2 secondary-1-2">
+			<div class=3D"white">#638FC0</div>
+			<div class=3D"black">#638FC0</div>
+		</td>
+		<td class=3D"sample sample-0 secondary-1-0">
+			<div class=3D"white">#4170A5</div>
+			<div class=3D"black">#4170A5</div>
+		</td>
+		<td class=3D"sample sample-3 secondary-1-3">
+			<div class=3D"white">#295D98</div>
+			<div class=3D"black">#295D98</div>
+		</td>
+		<td class=3D"sample sample-4 secondary-1-4">
+			<div class=3D"white">#15457B</div>
+			<div class=3D"black">#15457B</div>
+		</td>
+	</tr>
+	<tr>
+		<th>Secondary color (2):</th>
+		<td class=3D"sample sample-1 secondary-2-1">
+			<div class=3D"white">#FFDCA5</div>
+			<div class=3D"black">#FFDCA5</div>
+		</td>
+		<td class=3D"sample sample-2 secondary-2-2">
+			<div class=3D"white">#FFCA7A</div>
+			<div class=3D"black">#FFCA7A</div>
+		</td>
+		<td class=3D"sample sample-0 secondary-2-0">
+			<div class=3D"white">#FDBB56</div>
+			<div class=3D"black">#FDBB56</div>
+		</td>
+		<td class=3D"sample sample-3 secondary-2-3">
+			<div class=3D"white">#E89F30</div>
+			<div class=3D"black">#E89F30</div>
+		</td>
+		<td class=3D"sample sample-4 secondary-2-4">
+			<div class=3D"white">#BD7A13</div>
+			<div class=3D"black">#BD7A13</div>
+		</td>
+	</tr>
+	<tr>
+		<th>Complement color:</th>
+		<td class=3D"sample sample-1 complement-1">
+			<div class=3D"white">#EB98C6</div>
+			<div class=3D"black">#EB98C6</div>
+		</td>
+		<td class=3D"sample sample-2 complement-2">
+			<div class=3D"white">#DC69A8</div>
+			<div class=3D"black">#DC69A8</div>
+		</td>
+		<td class=3D"sample sample-0 complement-0">
+			<div class=3D"white">#CD4690</div>
+			<div class=3D"black">#CD4690</div>
+		</td>
+		<td class=3D"sample sample-3 complement-3">
+			<div class=3D"white">#BC2678</div>
+			<div class=3D"black">#BC2678</div>
+		</td>
+		<td class=3D"sample sample-4 complement-4">
+			<div class=3D"white">#990F5A</div>
+			<div class=3D"black">#990F5A</div>
+		</td>
+	</tr>
+</tbody></table>
+
+<table class=3D"color-table small">
+	<tbody><tr>
+		<th>Primary color:</th>
+		<td class=3D"sample sample-1 primary-1"></td>
+		<td class=3D"sample sample-2 primary-2"></td>
+		<td class=3D"sample sample-0 primary-0"></td>
+		<td class=3D"sample sample-3 primary-3"></td>
+		<td class=3D"sample sample-4 primary-4"></td>
+	</tr>
+	<tr>
+		<th>Secondary color (1):</th>
+		<td class=3D"sample sample-1 secondary-1-1"></td>
+		<td class=3D"sample sample-2 secondary-1-2"></td>
+		<td class=3D"sample sample-0 secondary-1-0"></td>
+		<td class=3D"sample sample-3 secondary-1-3"></td>
+		<td class=3D"sample sample-4 secondary-1-4"></td>
+	</tr>
+	<tr>
+		<th>Secondary color (2):</th>
+		<td class=3D"sample sample-1 secondary-2-1"></td>
+		<td class=3D"sample sample-2 secondary-2-2"></td>
+		<td class=3D"sample sample-0 secondary-2-0"></td>
+		<td class=3D"sample sample-3 secondary-2-3"></td>
+		<td class=3D"sample sample-4 secondary-2-4"></td>
+	</tr>
+	<tr>
+		<th>Complement color:</th>
+		<td class=3D"sample sample-1 complement-1"></td>
+		<td class=3D"sample sample-2 complement-2"></td>
+		<td class=3D"sample sample-0 complement-0"></td>
+		<td class=3D"sample sample-3 complement-3"></td>
+		<td class=3D"sample sample-4 complement-4"></td>
+	</tr>
+</tbody></table>
+
+<p>
+See the HTML source for more details.<br>
+Use the <em>Save / Save As...</em> command in your browser to store the doc=
+ument for latter use.
+</p>
+
+<hr>
+
+<p id=3D"footer">Generated by <a href=3D"http://paletton.com/">Paletton.com=
+</a> =C2=A9 2002-2014</p>
+
+
+
+</body></html>
+------MultipartBoundary--gRhH1YWqptRJx58WOplkQBbheq79kJUYMhvVwIikEC------
