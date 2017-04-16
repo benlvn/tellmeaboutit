@@ -7,9 +7,7 @@ class Profile(models.Model):
 
 class Topic(models.Model):
 	posted_by = models.ForeignKey(Profile, related_name="topics_posted")
-
 	text = models.CharField(max_length=100)
-
 	pub_date = models.DateTimeField()
 	on_board = models.BooleanField(default=True)
 
@@ -22,3 +20,4 @@ class Message(models.Model):
 	text = models.CharField(max_length=500, default="Hello")
 	pub_date = models.DateTimeField()
 	sender = models.ForeignKey(Profile, related_name="sent_messages")
+	seen = models.BooleanField(default=False)

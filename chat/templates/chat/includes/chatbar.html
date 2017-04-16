@@ -1,5 +1,20 @@
-<div id="chatbar">
-	{% for chat in all_chats %}
-		<p>{{chat.message}}</p>
-	{% endfor %}
+<div class="chat-bar">
+	<div class="chat-window" id="chat-list">
+		<div class="chat-top">
+			<p class="chat-top-text">Why are we here?</p>
+			<div class="chat-window-buttons">
+				<button href="#">-</a>
+				<button href="#">X</a>
+			</div>
+		</div>
+		<div class="chat-log">
+		</div>
+		<form class="send-message">
+			<input class="message-text" type="text" name="message"/>
+
+			<button class="send-button" type="submit">
+				<span class="glyphicon glyphicon-menu-right"></span>
+			</button>
+		</form>
+	</div>
 </div>

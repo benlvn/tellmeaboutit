@@ -1,109 +1,61 @@
 $(document).ready(function(){
 
 	///
-	/// Login form submission
-	///
-
-	$('#login_form').submit(function(){
-		event.preventDefault()
-
-		var fields = {};
-		$('#login_form').find(":input").each(function() {
-			fields[this.name] = $(this).val();
-		});	
-
-	})
-
-	get_topics()
-
-	///
-	/// Register form submission
-	///
-
-	$('#register_form').submit(function(){
-		event.preventDefault()
-
-		var fields = {};
-		$('#register_form').find(":input").each(function() {
-			fields[this.name] = $(this).val();
-		});
-		
-		$.getJSON('/register', fields, function(data){
-			if(data['taken']){
-				$('#username_taken').css('display', 'initial')
-			} else {
-				$('#username_taken').css('display', 'none')
-			}
-			if(!data['match']){
-				$('#passwords_unmatched').css('display', 'initial')
-			} else {
-				$('#passwords_unmatched').css('display', 'none')
-			}
-			if(!data['taken'] && data['match']){
-				location.reload()
-			}
-		});
-
-	})
-
-	///
-	/// Topic proposal
-	///
-
-	$('#topic-proposal').submit(function(){
-		console.log("hello")
-		event.preventDefault()
-		var fields = {};
-		$('#topic-proposal').find(":input").each(function() {
-			fields[this.name] = $(this).val();
-		});
-
-
-		$.getJSON('/newtopic', fields, function(data){
-			location.reload()
-		});
-	})
-
-
-	///
-	/// Hide topic
-	///
-
-	$("input[name^='toggle-topic']").click(function(){
-		id = $(this).attr('name').substr(13)
-		$.getJSON('/toggle-topic', {'id':id}, function(data){
-			location.reload()
-		})
-	})
-
-	///
-	/// Send message
+	/// Form submission
 	///
 
 	$(document).delegate('form', 'submit', function(event) {
-		event.preventDefault()
-	    var $form = $(this);
-	    var id = $form.attr('id');
-	    var elclass = $form.attr('class')
-	    var fields = {};
 
+		event.preventDefault()
+	    $form = $(this);
+
+	    fields = {};
+
+	    id = $form.attr('id');
+	    elclass = $form.attr('class')
 	    fields['id'] = id
 	    fields['class'] = elclass
 
 		$form.find(":input").each(function() {
 			fields[this.name] = $(this).val();
 		});
-	    
 
-	    if(id && id.startsWith("newmessage")){
-	    	fields['id'] = id.substr(11)
-	    	$.getJSON('/newmessage', fields, function(data){
-	    		$("#chat-window-"+id).replaceWith(data['chat-window'])
-	    	})
-	    }
+
+		///
+		/// Register
+		///
+
+		if(id === "register_form"){
+			$.getJSON('/register', fields, function(data){
+
+				// Username taken
+				if(data['taken']){
+					$('#username_taken').css('display', 'initial')
+				} else {
+					$('#username_taken').css('display', 'none')
+				}
+
+				// Passwords don't match
+				if(!data['match']){
+					$('#passwords_unmatched').css('display', 'initial')
+				} else {
+					$('#passwords_unmatched').css('display', 'none')
+				}
+
+				// Good job
+				if(!data['taken'] && data['match']){
+					location.reload()
+				}
+			});
+		}
+
+	    
+	    ///
+	    /// Log in
+	    ///
 
 	    if(id == "login_form"){
-	    	$.getJSON('/checklogin', fields, function(data){
+	    	$.getJSON('/login', fields, function(data){
 				if(data['success']){
 					location.reload();
 				}else{
@@ -112,10 +64,26 @@ $(document).ready(function(){
 			});
 	    }
 
+
+	    ///
+	    /// Topic proposal
+	    ///
+
+	    if(id == "topic-proposal"){
+	    	$.getJSON('/new-topic', fields, function(data){
+	    		 $('input[name="new-topic"]').val('');
+			});
+	    }
+
+
+	    ///
+	    /// Sent chat
+	    ///
+
 	    if(id && id.startsWith("send-new-chat")){
 	    	fields['id'] = id.substr(14)
 	    	chat_pos = $(this).parent().attr('id')
-	    	$.getJSON('/newchat', fields, function(data){
+	    	$.getJSON('/new-chat', fields, function(data){
 	    		$("#" + chat_pos).replaceWith(data['chat-window'])
 	    	})
 	    }
@@ -126,6 +94,7 @@ $(document).ready(function(){
 	/// Click topic
 	///
 
+	open_chats = [true, true, true]
 	$(document).on('click', '.topic', function(){	
 		id = $(this).attr('id').substr(6)
 		$.getJSON('/newchat-window', {'id':id}, function(data){
@@ -148,11 +117,8 @@ $(document).ready(function(){
 		})
 	})
 
-	open_chats = [true, true, true]
 
-
-
-
+	get_topics()
 
 
 	///
@@ -164,28 +130,37 @@ $(document).ready(function(){
 
 })
 
+
+
 function update_chats(){ 
-    $.getJSON('/updatechats', function(data){
-    	$('#chatbar').html("")
-    	for (ind in data['chat-windows']) {
-    		$('#chatbar').append(data['chat-windows'][ind])
-    	}
+    $.getJSON('/update-chats', function(data){
+    	
     })  
 }
 
+open_columns = [true, true, true, true]
+
 function get_topics(){
 	$.getJSON('/get-topics', {}, function(data){
+
 		topics = data['topics']
-		for (var i=0; i < topics.length; ++i) {
-			topic_id = topics[i]['id']
 
-			info = {'id' : topic_id,
-					'col' : (i%4 + 1)}
+		for (topic_id in topics) {
 
-			$.getJSON('/topic-display', info, function(data){
-				$('.topics-col:nth-child(' + data['col'] + ')').append(data['topic-display'])
+			$.getJSON('/topic-display', {'id': topic_id}, function(data){
+
+					for(col = 0; col < 4; col++){
+						if(col == 3){
+							open_columns = [true, true, true, true]
+							break
+						} else if (open_columns[col]) {
+							open_columns[col] = false
+							break
+						}
+					}
+
+				$('.topics-col:nth-child(' + (col+1) + ')').append(data['topic-display'])
 			})
-			last_i = i
 		}
 	})
 }

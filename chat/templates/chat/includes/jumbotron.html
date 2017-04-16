@@ -1,0 +1,16 @@
+<div class="jumbotron" id="titletron">
+	<div class="row">
+		<div class="col-md-6">
+			<h1 class="Anton"><span id="title-word">Tell</span><span id="title-word" 
+				>Me</span><span id="title-word" 
+				>About</span><span id="title-word" 
+				>It</span></h1>
+			<p style="font-style: italic; color:4170A5">Curate your conversation<p>
+		</div>
+		<div class="col-md-6" style="text-align: right; color: CD4690">
+			<h2 class="Fjalla">{{request.user.username}}</h2>
+			<h5>Posted <span style="color: 9DD82C">{{request.user.user_profile.topics_posted.count}}</span> Topics</h5>
+			<h5>Joined <span style="color: 9DD82C">{{request.user.user_profile.chats_joined.count}}</span> Conversations</h5>
+		</div>
+	</div>
+</div>

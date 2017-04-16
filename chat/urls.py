@@ -2,17 +2,24 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+
+	#Page request
 	url(r'^$', views.home, name="homepage"),
-	url(r'^profile$', views.profile, name="profile"),
-	url(r'^checklogin$', views.checklogin, name="checklogin"),
-	url(r'^register$', views.register, name="register"),
-	url(r'^logout$', views.logout_pressed, name="logout"),
-	url(r'^newtopic$', views.newtopic, name="newtopic"),
-	url(r'^newchat$', views.newchat, name="newchat"),
-	url(r'^newmessage$', views.new_message, name="newmessage"),
-	url(r'^updatechats$', views.updatechat, name="updatechat"),
-	url(r'^toggle-topic$', views.toggle_topic, name="toggle-topic"),
-	url(r'^get-topics$', views.get_topics, name="get-topics"),
+	url(r'^logout$', views.logout, name="logout"),
+
+	#Snippet Request
 	url(r'^topic-display$', views.topic_display, name="topic-display"),
+
+	#Data request
+	url(r'^get-topics$', views.get_topics, name="get-topics"),
+	url(r'^update-chats$', views.updatechat, name="updatechat"),
+
+	#Form submission
+	url(r'^login$', views.login_user, name="login"),
+	url(r'^register$', views.register, name="register"),
+	url(r'^new-topic$', views.new_topic, name="new-topic"),
+	url(r'^new-message$', views.new_message, name="new-message"),
+
+	
 	url(r'^newchat-window$', views.newchat_window, name="newchat-window")
 ]
