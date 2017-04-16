@@ -1,9 +1,18 @@
-<div class="chat-window" id="chat-window-{{chat.id}}">
-	{% for message in chat.messages.all %}
-		<p>{{message.text}}</p>
-	{% endfor %}
-	<form id="newmessage-{{chat.id}}">
-		<input type="text" name="message">
-		<input type="submit" value="Send">
+<div class="chat-window">
+	<div class="chat-top">
+		<p class="chat-top-text">{{chat.topic.text}}</p>
+		<div class="chat-window-buttons">
+			<button href="#">-</a>
+			<button href="#">X</a>
+		</div>
+	</div>
+	<div class="chat-log">
+	</div>
+	<form class="send-message" id="send-new-chat-{{chat.topic.id}}">
+		<input class="message-text" type="text" name="message"/>
+
+		<button class="send-button" type="submit">
+			<span class="glyphicon glyphicon-menu-right"></span>
+		</button>
 	</form>
 </div>

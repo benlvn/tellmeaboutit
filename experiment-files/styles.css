@@ -21,7 +21,7 @@ body {
 #titletron {
 	padding-left: 30px;
 	padding-bottom: 10px;
-	margin-top: 50px;
+	margin-top: 0px;
 	padding: 10 20 10 20;
 }
 
@@ -29,7 +29,8 @@ body {
 	background-color: #638FC0;
 	font-size: 20px;
 	padding: 0 20 0 20;
-	font-family: Anton
+	font-family: Anton;
+	margin-bottom: 0px;
 }
 
 .nav.navbar-nav li a {
@@ -46,9 +47,9 @@ body {
 
 .topic {
 	border-radius: 10px;
-	border: 1px solid red;
 	text-align: left;
-	padding: 0 10 0 10;
+	padding: 5 10 5 10;
+	margin-top: 10px;
 }
 
 .topics-col {
@@ -99,8 +100,8 @@ body {
 }
 
 .chat-bar {
-	height: 30px;
-	background-color: blue;
+	
+	background-color: #DC69A8;
    	bottom: 0;
     width: 100%;
     left: 0px;
@@ -110,13 +111,89 @@ body {
 .chat-window{
 	height: 400px;
 	background-color: red;
-	width: 20%;
-	position: relative;
-	bottom: 400px;
+	width: 270px;
+	position: absolute;
+	bottom: 0px;
+	display: inline-block;
 }
 
-.targ {
-	border: 1px solid red;
+.message-text {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	border: 1px solid black;
+	height: 30px;
+	width: 240px;
+}
+
+.send-button {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	height: 30px;
 	width: 30px;
+	border: 1px solid black;
+
 }
 
+.chat-top {
+	height: 30px;
+	background-color: orange;
+	padding: auto;
+    width: 100%;
+}
+
+.chat-log {
+	background-color: purple;
+	height: 340px;
+	overflow: scroll;
+}
+
+.message {
+	margin: 5px;
+	width: 50px;
+	height: 50px;
+	background-color: gray;
+}
+
+.chat-window-buttons {
+	position: absolute;
+	right: 0px;
+	width: 60px;
+}
+
+.chat-window-buttons > button {
+	height: 30px;
+	width: 30px;
+	background-color: transparent;
+	border: none;
+}
+
+.chat-top-text {
+	position: absolute;
+	left: 0px;
+	width: 190px;
+	padding-top: 5px;
+	text-align: left;
+	padding-left: 5px;
+}
+
+#chat-list {
+	right: 20px;
+}
+
+#c1 {
+	right: 320px;
+}
+
+#c2 {
+	right: 620px;
+}
+
+#c3 {
+	right: 920px;
+}
+
+#c4 {
+	right: 1220px;
+}

@@ -11,5 +11,8 @@ urlpatterns = [
 	url(r'^newchat$', views.newchat, name="newchat"),
 	url(r'^newmessage$', views.new_message, name="newmessage"),
 	url(r'^updatechats$', views.updatechat, name="updatechat"),
-	url(r'^toggle-topic$', views.toggle_topic, name="toggle-topic")
+	url(r'^toggle-topic$', views.toggle_topic, name="toggle-topic"),
+	url(r'^get-topics$', views.get_topics, name="get-topics"),
+	url(r'^topic-display$', views.topic_display, name="topic-display"),
+	url(r'^newchat-window$', views.newchat_window, name="newchat-window")
 ]

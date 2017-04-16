@@ -1,16 +1,116 @@
 <html>
 	<head>
+
+		<!-- Javascript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="static/chat/js/script.js" type="text/javascript"></script>
-		<link rel="stylesheet" type="text/css" href="static/chat/css/styles.css"/>
+
+		<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Anton|Fjalla+One|PT+Sans" rel="stylesheet">
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="static/chat/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="static/chat/css/styles.css"/>
+
 		<title>Tell Me About It</title>
+
 	</head>
+
 	<body>
-		{%include "chat/includes/navigation.html" %}
 
-		{% block content %}
-		{% endblock %}
+		<nav class="navbar navbar-default" id="navbar">
+			<ul class="nav navbar-nav">
+		    	<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+		    	<li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+		    	<li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		    	<li><a href="logout" class="Fjalla">Logout</a></li>
+		    </ul>
+		</nav>
 
-		{%include "chat/includes/chatbar.html" %}
+		<div class="jumbotron" id="titletron">
+			<div class="row">
+				<div class="col-md-6">
+					<h1 class="Anton"><span id="title-word">Tell</span><span id="title-word" 
+						>Me</span><span id="title-word" 
+						>About</span><span id="title-word" 
+						>It</span></h1>
+					<p style="font-style: italic; color:4170A5">Curate your conversation<p>
+				</div>
+				<div class="col-md-6" style="text-align: right; color: CD4690">
+					<h2 class="Fjalla">{{request.user.username}}</h2>
+					<h5>Posted <span style="color: 9DD82C">{{request.user.user_profile.topics_posted.count}}</span> Topics</h5>
+					<h5>Joined <span style="color: 9DD82C">{{request.user.user_profile.chats_joined.count}}</span> Conversations</h5>
+				</div>
+			</div>
+		</div>
+
+		<div class="container" >
+			<div class="row">
+				<div class="col-md-offset-2 col-md-8">
+					<h3 style="font-style:italic">What do you want to talk about?</h3>
+				    <div class="row">
+				    	<form id="topic-proposal"
+						    <div class="input-group">
+						      <span class="input-group-btn">
+						        <div class="input-group-btn">
+							        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Color <span class="caret"></span></button>
+							        <ul class="dropdown-menu" id="color-dropdown">
+							          <li class="color-list" id="blue"></li>
+							          <li class="color-list" id="orange"></li>
+							          <li class="color-list" id="green"></li>
+							          <li class="color-list" id="pink"></li>
+							        </ul>
+							      </div>
+						      </span>
+						      <input name="new-topic" type="text" class="form-control" placeholder="How's the weather? Did you see the game last night?">
+						      <span class="input-group-btn">
+						        <input class="btn btn-secondary" type="submit" value="Submit">
+						      </span>
+						    </div>
+						</form>
+					</div>
+				</div>
+			
+			<div class="row" style="text-align: center">
+				<h1 style="font-size:65; color:15457B" class="Fjalla">Click a topic to start a conversation</h1>
+			</div>
+			<div class="row" class="board">
+				<div class="topics-col col-md-3" style="height: 1000px;"></div>
+
+				<div class="topics-col col-md-3" style="height: 1000px;"></div>
+
+				<div class="topics-col col-md-3" style="height: 1000px;"></div>
+
+				<div class="topics-col col-md-3" style="height: 1000px;"></div>
+			</div>
+		</div>
+
+		<div class="chat-bar">
+			<div class="chat-window" id="chat-list">
+				<div class="chat-top">
+					<p class="chat-top-text">Why are we here?</p>
+					<div class="chat-window-buttons">
+						<button href="#">-</a>
+						<button href="#">X</a>
+					</div>
+				</div>
+				<div class="chat-log">
+				</div>
+				<form class="send-message">
+					<input class="message-text" type="text" name="message"/>
+
+					<button class="send-button" type="submit">
+						<span class="glyphicon glyphicon-menu-right"></span>
+					</button>
+				</form>
+			</div>
+		</div>
+			    <!-- Bootstrap core JavaScript
+	    ================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	    <script src="static/chat/js/bootstrap.min.js"></script>
 	</body>
 </html>

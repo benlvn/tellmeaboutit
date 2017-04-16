@@ -90,6 +90,23 @@ def new_message(request):
 def chat_window(request, chat):
 	return render_to_string('chat/includes/chat_window.html', {'chat': chat})
 
+def newchat_window(request):
+
+	topic_id = request.GET.get('id')
+	topic = Topic.objects.get(id=topic_id)
+
+	return JsonResponse({'chat-window': chat_window(request, Chat(topic=topic))})
+
+def topic_display(request):
+	
+	topic_id = request.GET.get('id')
+	topic = Topic.objects.get(id=topic_id)
+
+	return JsonResponse( 
+		{'topic-display': render_to_string('chat/includes/topic.html', {'topic': topic}), 
+		'col': request.GET.get('col') })
+
+
 def checklogin(request):
 
 	username = request.GET.get('username')
@@ -125,11 +142,21 @@ def updatechat(request):
 
 def toggle_topic(request):
 	topic_id = request.GET.get('id')
+	print(topic_id)
 	t = Topic.objects.get(id=topic_id)
 	t.on_board = not t.on_board
 	t.save()
 
 	return JsonResponse({})
+
+def get_topics(request):
+	json_dictionary = {'topics': []}
+	for topic in Topic.objects.all().order_by('-pub_date'):
+		if topic.on_board and topic.posted_by != request.user.user_profile:
+			info = {}
+			info['id'] = topic.id
+			json_dictionary['topics'].append(info)
+	return JsonResponse(json_dictionary)
 
 
 
