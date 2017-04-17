@@ -14,6 +14,7 @@ class Topic(models.Model):
 class Chat(models.Model):
 	topic = models.ForeignKey(Topic, related_name="chats")
 	outside_user = models.ForeignKey(Profile, related_name="chats_joined")
+	updated_at = models.DateTimeField()
 
 class Message(models.Model):
 	chat = models.ForeignKey(Chat, related_name="messages")
@@ -21,3 +22,4 @@ class Message(models.Model):
 	pub_date = models.DateTimeField()
 	sender = models.ForeignKey(Profile, related_name="sent_messages")
 	seen = models.BooleanField(default=False)
+	recieved = models.BooleanField(default=False)

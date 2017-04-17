@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	///
 	/// Form submission
 	///
@@ -80,12 +79,13 @@ $(document).ready(function(){
 	    /// Sent chat
 	    ///
 
-	    if(id && id.startsWith("send-new-chat")){
-	    	fields['id'] = id.substr(14)
-	    	chat_pos = $(this).parent().attr('id')
-	    	$.getJSON('/new-chat', fields, function(data){
-	    		$("#" + chat_pos).replaceWith(data['chat-window'])
-	    	})
+	    if(elclass == ("send-message")){
+
+	    	chat_id = id.substr(17)
+	    	text = fields['message']
+
+	    	send_message({'text':text, 'chat_id':chat_id})
+	    	
 	    }
 	});
 
@@ -94,27 +94,36 @@ $(document).ready(function(){
 	/// Click topic
 	///
 
-	open_chats = [true, true, true]
-	$(document).on('click', '.topic', function(){	
-		id = $(this).attr('id').substr(6)
-		$.getJSON('/newchat-window', {'id':id}, function(data){
+	$(document).on('click', '.topic', function(){
+
+		elclass = $(this).attr('class')
+		id = $(this).attr('id')
+		topic_id = id.substr(6)
+
+		$.getJSON('/new-chat-window', {'id':topic_id}, function(data){
+
 			string = data['chat-window']
-			$newchat = $('<div/>').html(string).contents();
-			if (open_chats[0]) {
-				$newchat.attr('id', 'chat-right')
-				open_chats[0] = false
-			} else if (open_chats[1]) {
-				$newchat.attr('id', 'chat-middle')
-				open_chats[1] = false
-			} else if (open_chats[2]) {
-				$newchat.attr('id', 'chat-left')
-				open_chats[2] = false;
-			} else {
-				$('#chat-left').remove()
-				$newchat.attr('id', 'chat-left')
-			}
-			$('.chat-bar').append($newchat)
+
+			open_chat(data['chat-window'])
 		})
+	})
+
+
+	///
+	/// Click chat list item
+	///
+
+	$(document).on('click', '.chat-list-item', function(){
+		id = $(this).attr('id')
+		chat_id = id.substr(10)
+
+		$.getJSON('/open-chat-window', {'id':chat_id}, function(data){
+			string = data['chat-window']
+
+			open_chat(data['chat-window'])
+
+		})
+
 	})
 
 
@@ -122,21 +131,15 @@ $(document).ready(function(){
 
 
 	///
-	/// Update chat every 5 seconds
+	/// Update chat every 2seconds
 	///
 
-	update_chats()
-	setInterval(update_chats, 5000);
+	setInterval(recieve_messages, 2000);
 
 })
 
+chat_info = {}
 
-
-function update_chats(){ 
-    $.getJSON('/update-chats', function(data){
-    	
-    })  
-}
 
 open_columns = [true, true, true, true]
 
@@ -145,9 +148,11 @@ function get_topics(){
 
 		topics = data['topics']
 
-		for (topic_id in topics) {
+		for (ind in topics) {
 
-			$.getJSON('/topic-display', {'id': topic_id}, function(data){
+			topic = topics[ind]
+
+			$.getJSON('/topic-display', {'id': topic['id']}, function(data){
 
 					for(col = 0; col < 4; col++){
 						if(col == 3){
@@ -165,3 +170,92 @@ function get_topics(){
 	})
 }
 
+
+function open_chat(string){
+	$newchat = $('<div/>').html(string).contents();
+
+	if (open_chats[0] == '') {
+		$newchat.attr('class', "chat-window" + ' chat-right')
+		open_chats[0] = $newchat[1]['id'].substr(5)
+
+	} else if (open_chats[1] == '') {
+
+		$newchat.attr('class', "chat-window" + ' chat-middle')
+		open_chats[1] = $newchat[1]['id'].substr(5)
+
+	} else if (open_chats[2] == '') {
+
+		$newchat.attr('class', "chat-window" + ' chat-left')
+		open_chats[2] = $newchat[1]['id'].substr(5);
+
+	} else {
+
+		$('#chat-left').remove()
+		$newchat.attr('class', "chat-window" + ' chat-left')
+
+	}
+	$('.chat-bar').append($newchat)
+
+}
+
+//
+// Chat control
+//
+
+open_chats = ['', '', '']
+
+function send_message(message){
+	$.getJSON("/new-message", message)
+	open_ind = $.inArray(message['chat_id'], open_chats)
+	if(open_ind != -1){
+		add_message(open_ind, text, true)
+	}
+
+}
+
+function recieve_messages(){
+	$.getJSON("/recieve-messages", {}, function(data){
+		messages = data['messages']
+
+		for(i=0; i<messages.length; ++i){
+
+			message = messages[i]
+			text = message['text']
+			chat_id = message['chat_id']
+
+			$item_copy = $('#chat-list-' + chat_id)
+			$('#chat-list-' + chat_id).remove()
+			$('#chat-list').prepend($item_copy)
+
+
+			open_ind = $.inArray(chat_id.toString(), open_chats)
+
+			if(open_ind != -1){
+				add_message(open_ind, text, false)
+			}
+		}
+	})
+}
+
+function add_message(ind, text, sent){
+
+	if (sent) {
+		cl = 'sent-message'
+	} else {
+		cl = 'recieved-message'
+	}
+
+	$message = $('<div/>').html('<div class="' + cl + '""><p>' + text + '</p></div>').contents()
+
+	if(ind == 0){
+		console.log('hey')
+		// chat right
+		$('.chat-right .chat-log').append($message)
+	} else if (ind == 1){
+		// chat mid
+		$('.chat-middle.chat-log').append($message)
+	} else if (ind == 2){
+		// chat left
+		$('.chat-left.chat-log').append($message)
+	}
+}

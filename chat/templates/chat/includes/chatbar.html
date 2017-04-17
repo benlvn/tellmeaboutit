@@ -1,20 +1,12 @@
 <div class="chat-bar">
-	<div class="chat-window" id="chat-list">
-		<div class="chat-top">
-			<p class="chat-top-text">Why are we here?</p>
-			<div class="chat-window-buttons">
-				<button href="#">-</a>
-				<button href="#">X</a>
-			</div>
+	<div id="chat-list-window">
+		<div class="chat-top" style="background-color: #FFCA7A">
+			<p class="chat-top-text">Chats</p>
 		</div>
-		<div class="chat-log">
+		<div id="chat-list">
+			{% for chat in chats %}
+				{% include "chat/includes/chat_list_item.html" with chat=chat %}
+			{% endfor %}
 		</div>
-		<form class="send-message">
-			<input class="message-text" type="text" name="message"/>
-
-			<button class="send-button" type="submit">
-				<span class="glyphicon glyphicon-menu-right"></span>
-			</button>
-		</form>
 	</div>
 </div>

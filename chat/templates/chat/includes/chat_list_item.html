@@ -1,0 +1,18 @@
+<div class="chat-list-item" id="chat-list-{{chat.id}}">
+	<div class="info">
+		<h4>{{chat.topic.text}}</h4>
+		{% if chat.outside_user == request.user.user_profile %}
+			<h5>{{chat.topic.posted_by.authenticated_user}}</h5>
+		{% else %}
+			<h5>{{chat.outside_user.authenticated_user}}</h5>
+		{% endif %}
+	</div>
+	<div class="new-message">
+		{% if not chat.seen %}
+			<div class="new-message-dot">
+			</div>
+		{% else %}
+			<div class="new-message-dot" style="display:none"></div>
+		{% endif %}
+	</div>
+</div>

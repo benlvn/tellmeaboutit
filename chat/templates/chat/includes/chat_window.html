@@ -1,4 +1,8 @@
-<div class="chat-window">
+{% if chat.id == None %}
+<div class="chat-window" id="chat-new-{{chat.topic.id}}">
+{% else %}
+<div class="chat-window" id="chat-{{chat.id}}">
+{% endif %}
 	<div class="chat-top">
 		<p class="chat-top-text">{{chat.topic.text}}</p>
 		<div class="chat-window-buttons">
@@ -8,9 +12,13 @@
 	</div>
 	<div class="chat-log">
 	</div>
-	<form class="send-message" id="send-new-chat-{{chat.topic.id}}">
+	{% if chat.id == None %}
+	<form class="send-message" id="send-new-message-new-{{chat.topic.id}}">
+	{% else %}
+	<form class="send-message" id="send-new-message-{{chat.id}}">
+	{% endif %}
+	
 		<input class="message-text" type="text" name="message"/>
-
 		<button class="send-button" type="submit">
 			<span class="glyphicon glyphicon-menu-right"></span>
 		</button>

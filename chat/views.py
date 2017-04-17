@@ -16,7 +16,8 @@ def home(request):
 	# If user is logged in, return the homepage
 	# Else return the login page
 	if request.user.is_authenticated:
-		return render(request, 'chat/home.html')
+		all_chats = Chat.objects.filter(outside_user=request.user.user_profile) | Chat.objects.filter(topic__posted_by=request.user.user_profile)
+		return render(request, 'chat/home.html', {'chats':all_chats})
 	else:
 		return login_page(request)
 
@@ -24,7 +25,7 @@ def home(request):
 def login_page(request):
 	return render(request, 'chat/login.html')
 
-def logout(request):
+def logout_user(request):
 	logout(request)
 	return redirect('/')
 
@@ -93,27 +94,28 @@ def new_topic(request):
 def new_message(request):
 
 	# Data recieved
-	text = request.GET.get('message')
-	topic_id = request.GET.get('topic_id')
+	text = request.GET.get('text')
 	chat_id = request.GET.get('chat_id')
 
 	profile = request.user.user_profile
 
-	if chat_id == "null":
+	if chat_id.startswith('new'):
 		# Create new chat if needed
+		topic_id = chat_id[4:]
 		chat = Chat(topic=Topic.objects.get(id=topic_id), 
-					outside_user=profile)
-		chat_id = chat.id
+					outside_user=profile, updated_at=datetime.now())
 		chat.save()
-
+		chat_id = chat.id
 
 	chat = Chat.objects.get(id=chat_id)
 	
 	# Create new message
-	message = Message(chat=chat, text=text, pub_date=datetime.now(), sender=profile)
+	sent_at = datetime.now()
+	message = Message(chat=chat, text=text, pub_date=sent_at, sender=profile)
+	chat.updated_at = sent_at
 	message.save()
 
-	return updatechat(request)
+	return JsonResponse({})
 
 
 
@@ -124,7 +126,13 @@ def new_message(request):
 def chat_window(request, chat):
 	return render_to_string('chat/includes/chat_window.html', {'chat': chat})
 
-def newchat_window(request):
+def open_chat_window(request):
+
+	chat_id = request.GET.get('id')
+	chat = Chat.objects.get(id=chat_id)
+	return JsonResponse({'chat-window':chat_window(request, chat)})
+
+def new_chat_window(request):
 
 	topic_id = request.GET.get('id')
 	topic = Topic.objects.get(id=topic_id)
@@ -134,65 +142,75 @@ def newchat_window(request):
 def topic_display(request):
 	
 	topic_id = request.GET.get('id')
-	print(topic_id)
 	topic = Topic.objects.get(id=topic_id)
+	print(topic.id)
 
 	return JsonResponse( 
 		{'topic-display': render_to_string('chat/includes/topic.html', {'topic': topic}), 
 		'col': request.GET.get('col') })
+
+def chat_list_item(request):
+
+	# Data recieved
+	chat_id = request.GET.get('chat_id')
+
+	chat = Chat.objects.get(id=chat_id)
+
+	return JsonResponse({'chat-list-item': render_to_string('chat/includes/chat_list_item.html', {'chat':chat}, request=request)})
 
 
 ###
 ### Update Information
 ###
 
-def updatechat(request):
-
-	# Find all chats the user belongs to
-	all_chats = Chat.objects.filter(outside_user=request.user.user_profile) | Chat.objects.filter(topic__posted_by=request.user.user_profile)
-
-	# Keys are chat id, values are a list of messages
-	chats_dict = {}
-
-	for chat in all_chats:
-
-		# List of message dictionaries
-		# Contains sender, text, and seen info
-		messages = []
-
-		for message in chat.messages.order_by('pub_date'):
-			info = {}
-			info['sender'] = message.sender
-			info['text'] = message.text
-			info['seen'] = message.seen
-			messages += [info]
-
-		chats_dict[chat.id] = messages
-	
-
-	return JsonResponse({'chats': chats_dict})
-
-
-
 def get_topics(request):
 
 	# List of topics
 	# Each topic is represented by a dictionary
-	# Contains id infor
+	# Contains id info
 	json_dictionary = {'topics': []}
 
-	for topic in Topic.objects.all().order_by('-pub_date'):
+	chats_joined = request.user.user_profile.chats_joined.all()
+
+	topics_not_discussed = Topic.objects.all().order_by('-pub_date').exclude(on_board=False).exclude(posted_by=request.user.user_profile).exclude(id__in=chats_joined.values('topic_id'))
+
+	for topic in topics_not_discussed:
 
 		# Display topic if it's on the board
 		# and created by a different user
-		if topic.on_board and topic.posted_by != request.user.user_profile:
-			info = {}
-			info['id'] = topic.id
-			json_dictionary['topics'].append(info)
+		# and the user hasn't already chatted about it
+		info = {}
+		info['id'] = topic.id
+		json_dictionary['topics'].append(info)
 
 
 	return JsonResponse(json_dictionary)
 
+
+def recieve_messages(request):
+
+	profile = request.user.user_profile
+
+	# Chats user belongs to
+	chats = profile.chats_joined.all() | Chat.objects.all().filter(topic__in = profile.topics_posted.all())
+
+	# Unrecieved messages
+	unrecieved = Message.objects.filter(chat__in=chats).exclude(sender=profile).exclude(recieved=True).order_by('-pub_date')
+
+	messages = []
+
+	for message in unrecieved:
+		obj = {}
+		obj['text'] = message.text
+		obj['chat_id'] = message.chat.id
+		messages += [obj]
+		message.recieved = True
+		message.save()
+
+
+
+
+	return JsonResponse({'messages':messages})
 
 
 

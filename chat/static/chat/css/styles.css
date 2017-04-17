@@ -179,22 +179,81 @@ body {
 	padding-left: 5px;
 }
 
-#chat-list {
-	right: 20px;
-}
-
-#chat-right {
+.chat-right {
 	right: 320px;
 }
 
-#chat-middle {
+.chat-middle {
 	right: 620px;
 }
 
-#chat-left {
+.chat-left {
 	right: 920px;
 }
 
 #c4 {
 	right: 1220px;
 }
+
+/*
+	Chat List
+*/
+
+#chat-list-window {
+	height: 400px;
+	background-color: red;
+	width: 270px;
+	position: absolute;
+	bottom: 0px;
+	display: inline-block;
+	right: 20px;
+}
+
+.chat-list-item {
+	background-color: #DC69A8;
+	height: 60px;
+	border: 1px solid black;
+	padding: 0px;
+	position: relative;
+}
+
+.info {
+	display: inline-block;
+	height: 100%;
+	width: 170px;
+	margin: 0 0 0 20;
+	position: absolute;
+}
+
+.new-message {
+	display: inline-block;
+	height: 100%;
+	margin: 0px;
+	width: 70px;
+	position: absolute;
+	right: 0px;
+	padding: 20px;
+}
+
+.info > h4 {
+	position: relative;
+}
+
+.info > h3 {
+	position: relative;
+}
+
+.new-message-dot {
+	border-radius: 100%;
+	width: 20px;
+	height: 20px;
+	background-color: #BC2678;
+}
+
+#chat-list {
+	overflow: scroll;
+	height: 370px;
+}
+
+
+
