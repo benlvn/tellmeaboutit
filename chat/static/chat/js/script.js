@@ -131,7 +131,7 @@ $(document).ready(function(){
 	})
 
 	$(document).on('click', '.close-chat', function(){
-		chat_id = $(this).attr('name').substr(6)
+		chat_id = $(this).attr('id').substr(6)
 		ind = $.inArray(chat_id.toString(), open_chats)
 		if(ind == 0){
 			// chat right
@@ -171,7 +171,7 @@ $(document).ready(function(){
 	})
 
 	$(document).on('click', '.minimize-chat', function(){
-		chat_id = $(this).attr('name').substr(9)
+		chat_id = $(this).attr('id').substr(9)
 		ind = $.inArray(chat_id.toString(), open_chats)
 
 		if(ind == 0){
@@ -292,17 +292,42 @@ open_chats = ['', '', '']
 minimized_chats = [false, false, false]
 
 function send_message(message){
-	$.getJSON("/new-message", message)
 
-	$item_copy = $('#chat-list-' + chat_id)
-	$('#chat-list-' + chat_id).remove()
-	$('#chat-list').prepend($item_copy)
+	new_chat = message['chat_id'].startsWith('new')
+	$.getJSON("/new-message", message, function(data){
 
-	open_ind = $.inArray(message['chat_id'], open_chats)
+		chat_id = data['chat_id']
+		topic_id = data['topic_id']
 
-	if(open_ind != -1){
+		if(new_chat){
+			$item = $('<div/>').html(data['chat-list-item']).contents()
+			$('#chat-list').prepend($item)
+			$('#chat-new-' + topic_id).attr('id', 'chat-' + chat_id)
+			$('#send-new-message-new-' + topic_id).attr('id', 'send-new-message-' + chat_id)
+			$('#minimize-new-' + topic_id).attr('id', 'minimize-' + chat_id)
+			$('#close-new-' + topic_id).attr('id', 'minimize-', + chat_id)
+
+			$('#topic-' + topic_id).remove()
+
+		} else {
+
+			$item_copy = $('#chat-list-' + chat_id)
+			$('#chat-list-' + chat_id).remove()
+			$('#chat-list').prepend($item_copy)
+
+		}
+
+		
+
+		open_ind = $.inArray(message['chat_id'], open_chats)
+
+		open_chats[open_ind] = chat_id.toString()
+
 		add_message(open_ind, text, true)
-	}
+
+	})
+
+	
 
 }
 
@@ -342,7 +367,6 @@ function add_message(ind, text, sent){
 	$message = $('<div/>').html('<div class="message"><div class="' + cl + '"><p>' + text + '</p></div></div>').contents()
 
 	if(ind == 0){
-		console.log('hey')
 		// chat right
 		$('.chat-right .chat-log').append($message)
 	} else if (ind == 1){

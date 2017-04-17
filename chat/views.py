@@ -16,7 +16,11 @@ def home(request):
 	# If user is logged in, return the homepage
 	# Else return the login page
 	if request.user.is_authenticated:
-		all_chats = Chat.objects.filter(outside_user=request.user.user_profile) | Chat.objects.filter(topic__posted_by=request.user.user_profile)
+		all_chats = Chat.objects.filter(outside_user=request.user.user_profile) | Chat.objects.filter(topic__posted_by=request.user.user_profile).order_by('-updated_at')
+		for chat in all_chats:
+			print(chat.topic.text)
+			print(chat.updated_at)
+			print(chat.unseen_by)
 		return render(request, 'chat/home.html', {'chats':all_chats})
 	else:
 		return login_page(request)
@@ -112,10 +116,19 @@ def new_message(request):
 	# Create new message
 	sent_at = datetime.now()
 	message = Message(chat=chat, text=text, pub_date=sent_at, sender=profile)
-	chat.updated_at = sent_at
 	message.save()
 
-	return JsonResponse({})
+	chat.updated_at = sent_at
+
+	if profile == chat.outside_user:
+		chat.unseen_by = chat.topic.posted_by
+	else:
+		chat.unseen_by = chat.outside_user
+
+	chat.save()
+
+	return JsonResponse({'chat_id': chat_id, 'topic_id': chat.topic.id, 
+						'chat-list-item': render_to_string('chat/includes/chat_list_item.html', {'chat':chat}, request=request)})
 
 
 

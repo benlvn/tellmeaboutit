@@ -8,7 +8,7 @@
 		{% endif %}
 	</div>
 	<div class="new-message">
-		{% if not chat.seen %}
+		{% if chat.unseen_by == user.user_profile %}
 			<div class="new-message-dot">
 			</div>
 		{% else %}

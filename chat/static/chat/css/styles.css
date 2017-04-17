@@ -198,7 +198,7 @@ body {
 
 #chat-list-window {
 	height: 400px;
-	background-color: red;
+	background-color: #EB98C6;
 	width: 270px;
 	position: absolute;
 	bottom: 0px;
@@ -207,9 +207,10 @@ body {
 }
 
 .chat-list-item {
-	background-color: #DC69A8;
+	background-color: #FFCA7A;
 	height: 60px;
 	border: 1px solid black;
+	border-bottom: none;
 	padding: 0px;
 	position: relative;
 }
