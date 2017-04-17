@@ -148,26 +148,23 @@ body {
 	overflow: scroll;
 	border: 1px solid black;
 	border-bottom: none;
-}
-
-.message {
-	margin: 5px;
-	width: 50px;
-	height: 50px;
-	background-color: gray;
+	padding: 10px;
+	font-size: 15px;
 }
 
 .chat-window-buttons {
 	position: absolute;
 	right: 0px;
 	width: 60px;
+	padding: 2px;
 }
 
 .chat-window-buttons > button {
-	height: 30px;
-	width: 30px;
+	height: 25px;
+	width: 25px;
 	background-color: transparent;
 	border: none;
+	display: inline-block;
 }
 
 .chat-top-text {
@@ -255,5 +252,25 @@ body {
 	height: 370px;
 }
 
+.sent-message {
+	position: relative;
+	width: 70%;
+	left: 30%;
+	border-radius: 5px;
+	background-color: #B6EC50;
+	padding: 3px;
+}
 
+.recieved-message {
+	position: relative;
+	width: 70%;
+	border-radius: 5px;
+	background-color: #FDBB56;
+	padding: 3px;
+}
+
+.message {
+	margin-bottom: 10px;
+	position: relative;
+}
 

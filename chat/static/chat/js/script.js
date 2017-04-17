@@ -85,6 +85,8 @@ $(document).ready(function(){
 	    	text = fields['message']
 
 	    	send_message({'text':text, 'chat_id':chat_id})
+
+	    	$('input[name="message"]').val('');
 	    	
 	    }
 	});
@@ -117,6 +119,8 @@ $(document).ready(function(){
 		id = $(this).attr('id')
 		chat_id = id.substr(10)
 
+		$(this).find('.new-message .new-message-dot').css('display', 'none')
+
 		$.getJSON('/open-chat-window', {'id':chat_id}, function(data){
 			string = data['chat-window']
 
@@ -124,6 +128,82 @@ $(document).ready(function(){
 
 		})
 
+	})
+
+	$(document).on('click', '.close-chat', function(){
+		chat_id = $(this).attr('name').substr(6)
+		ind = $.inArray(chat_id.toString(), open_chats)
+		if(ind == 0){
+			// chat right
+			$('.chat-right').remove()
+
+			$('.chat-middle').addClass('chat-right')
+			$('.chat-middle').removeClass('chat-middle')
+
+			$('.chat-left').addClass('chat-middle')
+			$('.chat-left').removeClass('chat-left')
+
+			open_chats[0] = open_chats[1]
+			open_chats[1] = open_chats[2]
+			open_chats[2] = ''
+
+			minimized_chats[0] = minimized_chats[1]
+			minimized_chats[1] = minimized_chats[2]
+			minimized_chats[2] = false
+		} else if (ind == 1){
+			// chat mid
+			$('.chat-middle').remove()
+
+			$('.chat-left').addClass('chat-middle')
+			$('.chat-left').removeClass('chat-left')
+
+			open_chats[1] = open_chats[2]
+			open_chats[2] = ''
+
+			minimized_chats[1] = minimized_chats[2]
+			minimized_chats[2] = false
+		} else if (ind == 2){
+			// chat left
+			$('.chat-left').remove()
+			open_chats[2] = ''
+			minimized_chats[2] = false
+		}
+	})
+
+	$(document).on('click', '.minimize-chat', function(){
+		chat_id = $(this).attr('name').substr(9)
+		ind = $.inArray(chat_id.toString(), open_chats)
+
+		if(ind == 0){
+			// chat right
+			if(minimized_chats[0]){
+				$('.chat-right').css('bottom', '0px')
+				minimized_chats[0] = false
+			} else {
+				$('.chat-right').css('bottom', '-370px')
+				minimized_chats[0] = true
+			}
+			
+			
+		} else if (ind == 1){
+			// chat mid
+			if(minimized_chats[1]){
+				$('.chat-middle').css('bottom', '0px')
+				minimized_chats[1] = false
+			} else {
+				$('.chat-middle').css('bottom', '-370px')
+				minimized_chats[1] = true
+			}
+		} else if (ind == 2){
+			// chat left
+			if(minimized_chats[2]){
+				$('.chat-left').css('bottom', '0px')
+				minimized_chats[2] = false
+			} else {
+				$('.chat-left').css('bottom', '-370px')
+				minimized_chats[2] = true
+			}
+		}
 	})
 
 
@@ -174,27 +254,33 @@ function get_topics(){
 function open_chat(string){
 	$newchat = $('<div/>').html(string).contents();
 
-	if (open_chats[0] == '') {
-		$newchat.attr('class', "chat-window" + ' chat-right')
-		open_chats[0] = $newchat[1]['id'].substr(5)
+	ind = $.inArray($newchat[1]['id'].substr(5), open_chats)
 
-	} else if (open_chats[1] == '') {
+	if(ind == -1){
+		if (open_chats[0] == '') {
+			$newchat.attr('class', "chat-window" + ' chat-right')
+			open_chats[0] = $newchat[1]['id'].substr(5)
 
-		$newchat.attr('class', "chat-window" + ' chat-middle')
-		open_chats[1] = $newchat[1]['id'].substr(5)
+		} else if (open_chats[1] == '') {
 
-	} else if (open_chats[2] == '') {
+			$newchat.attr('class', "chat-window" + ' chat-middle')
+			open_chats[1] = $newchat[1]['id'].substr(5)
 
-		$newchat.attr('class', "chat-window" + ' chat-left')
-		open_chats[2] = $newchat[1]['id'].substr(5);
+		} else if (open_chats[2] == '') {
 
-	} else {
+			$newchat.attr('class', "chat-window" + ' chat-left')
+			open_chats[2] = $newchat[1]['id'].substr(5);
 
-		$('#chat-left').remove()
-		$newchat.attr('class', "chat-window" + ' chat-left')
+		} else {
 
+			$('.chat-left').remove()
+			$newchat.attr('class', "chat-window" + ' chat-left')
+			open_chats[2] = $newchat[1]['id'].substr(5);
+
+		}
+		$('.chat-bar').append($newchat)
 	}
-	$('.chat-bar').append($newchat)
+	
 
 }
 
@@ -203,10 +289,17 @@ function open_chat(string){
 //
 
 open_chats = ['', '', '']
+minimized_chats = [false, false, false]
 
 function send_message(message){
 	$.getJSON("/new-message", message)
+
+	$item_copy = $('#chat-list-' + chat_id)
+	$('#chat-list-' + chat_id).remove()
+	$('#chat-list').prepend($item_copy)
+
 	open_ind = $.inArray(message['chat_id'], open_chats)
+
 	if(open_ind != -1){
 		add_message(open_ind, text, true)
 	}
@@ -224,6 +317,7 @@ function recieve_messages(){
 			chat_id = message['chat_id']
 
 			$item_copy = $('#chat-list-' + chat_id)
+			$item_copy.find('.new-message .new-message-dot').css('display', 'block')
 			$('#chat-list-' + chat_id).remove()
 			$('#chat-list').prepend($item_copy)
 
@@ -245,7 +339,7 @@ function add_message(ind, text, sent){
 		cl = 'recieved-message'
 	}
 
-	$message = $('<div/>').html('<div class="' + cl + '""><p>' + text + '</p></div>').contents()
+	$message = $('<div/>').html('<div class="message"><div class="' + cl + '"><p>' + text + '</p></div></div>').contents()
 
 	if(ind == 0){
 		console.log('hey')
@@ -253,9 +347,9 @@ function add_message(ind, text, sent){
 		$('.chat-right .chat-log').append($message)
 	} else if (ind == 1){
 		// chat mid
-		$('.chat-middle.chat-log').append($message)
+		$('.chat-middle .chat-log').append($message)
 	} else if (ind == 2){
 		// chat left
-		$('.chat-left.chat-log').append($message)
+		$('.chat-left .chat-log').append($message)
 	}
 }

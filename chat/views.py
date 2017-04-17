@@ -124,7 +124,7 @@ def new_message(request):
 ###
 
 def chat_window(request, chat):
-	return render_to_string('chat/includes/chat_window.html', {'chat': chat})
+	return render_to_string('chat/includes/chat_window.html', {'chat': chat}, request=request)
 
 def open_chat_window(request):
 

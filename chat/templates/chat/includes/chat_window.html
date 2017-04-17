@@ -6,11 +6,24 @@
 	<div class="chat-top">
 		<p class="chat-top-text">{{chat.topic.text}}</p>
 		<div class="chat-window-buttons">
-			<button href="#">-</a>
-			<button href="#">X</a>
+			<button class="minimize-chat" name="minimize-{{chat.id}}">-</button>
+			<button class="close-chat" name="close-{{chat.id}}">X</button>
 		</div>
 	</div>
 	<div class="chat-log">
+		{% for message in chat.messages.all %}
+		<div class="message">
+		{% if message.sender == user.user_profile %}
+			<div class="sent-message">
+		{% else %}
+			<div class="recieved-message">
+		{% endif %}
+				<p>{{message.text}}</p></div>
+		</div>
+		{% endfor %}
+		
+
+
 	</div>
 	{% if chat.id == None %}
 	<form class="send-message" id="send-new-message-new-{{chat.topic.id}}">
