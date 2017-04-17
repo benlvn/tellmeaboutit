@@ -1,4 +1,4 @@
-<div class="chat-list-item" id="chat-list-{{chat.id}}">
+<div class="chat-list-item {{chat.topic.color}}" id="chat-list-{{chat.id}}">
 	<div class="info">
 		<h4>{{chat.topic.text}}</h4>
 		{% if chat.outside_user == request.user.user_profile %}

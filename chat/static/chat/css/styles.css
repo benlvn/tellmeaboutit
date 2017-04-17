@@ -83,19 +83,19 @@ body {
 	height: 20px;
 }
 
-.color-list#blue{
+.blue{
 	background-color: #4170A5;
 }
 
-.color-list#orange{
+.orange{
 	background-color: #FDBB56;
 }
 
-.color-list#green{
+.green{
 	background-color: #B6EC50;
 }
 
-.color-list#pink{
+.pink{
 	background-color: #CD4690;
 }
 
@@ -109,11 +109,12 @@ body {
 
 .chat-window{
 	height: 400px;
-	background-color: red;
+	border: 1px solid black;
 	width: 270px;
 	position: absolute;
 	bottom: 0px;
 	display: inline-block;
+
 }
 
 .message-text {
@@ -137,7 +138,6 @@ body {
 
 .chat-top {
 	height: 30px;
-	background-color: #638FC0;
 	padding: auto;
     width: 100%;
 }
@@ -146,7 +146,6 @@ body {
 	background-color: #dddddd;
 	height: 340px;
 	overflow: scroll;
-	border: 1px solid black;
 	border-bottom: none;
 	padding: 10px;
 	font-size: 15px;
@@ -207,7 +206,6 @@ body {
 }
 
 .chat-list-item {
-	background-color: #FFCA7A;
 	height: 60px;
 	border: 1px solid black;
 	border-bottom: none;

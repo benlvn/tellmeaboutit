@@ -87,9 +87,10 @@ def new_topic(request):
 
 	# Data recieved and to send
 	text = request.GET.get('new-topic')
+	color = request.GET.get('color')
 
 	# Create new topic
-	t = Topic(posted_by=request.user.user_profile, text=text, pub_date=datetime.now(), on_board=True)
+	t = Topic(color=color, posted_by=request.user.user_profile, text=text, pub_date=datetime.now(), on_board=True)
 	t.save()
 
 	return JsonResponse({'text':text})
@@ -162,7 +163,6 @@ def topic_display(request):
 	
 	topic_id = request.GET.get('id')
 	topic = Topic.objects.get(id=topic_id)
-	print(topic.id)
 
 	return JsonResponse( 
 		{'topic-display': render_to_string('chat/includes/topic.html', {'topic': topic}), 

@@ -10,6 +10,7 @@ class Topic(models.Model):
 	text = models.CharField(max_length=100)
 	pub_date = models.DateTimeField()
 	on_board = models.BooleanField(default=True)
+	color = models.CharField(max_length=7)
 
 class Chat(models.Model):
 	topic = models.ForeignKey(Topic, related_name="chats")

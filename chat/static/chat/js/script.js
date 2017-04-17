@@ -69,6 +69,7 @@ $(document).ready(function(){
 	    ///
 
 	    if(id == "topic-proposal"){
+	    	fields['color'] = $('input[name="new-topic"]').attr('class').substr(13)
 	    	$.getJSON('/new-topic', fields, function(data){
 	    		 $('input[name="new-topic"]').val('');
 			});
@@ -206,6 +207,29 @@ $(document).ready(function(){
 		}
 	})
 
+	list_minimized = false
+
+	$(document).on('click', '#minimize-list', function(){
+		console.log('hello')
+		if(list_minimized){
+			$("#chat-list-window").css('bottom', '0px')
+			list_minimized = false
+		} else {
+			list_minimized = true
+			$("#chat-list-window").css('bottom', '-370px')
+		}
+	})
+
+	current_color = 'blue'
+
+	$(document).on('click', '.color-list', function(){
+		color = $(this).attr('class').substr(11)
+
+		$('input[name="new-topic"').removeClass(current_color)
+		$('input[name="new-topic"').addClass(color)
+		current_color=color
+	})
+
 
 	get_topics()
 
@@ -326,12 +350,10 @@ function send_message(message){
 		add_message(open_ind, text, true)
 
 	})
-
-	
-
 }
 
 function recieve_messages(){
+
 	$.getJSON("/recieve-messages", {}, function(data){
 		messages = data['messages']
 
@@ -342,11 +364,19 @@ function recieve_messages(){
 			chat_id = message['chat_id']
 
 			$item_copy = $('#chat-list-' + chat_id)
-			$item_copy.find('.new-message .new-message-dot').css('display', 'block')
-			$('#chat-list-' + chat_id).remove()
-			$('#chat-list').prepend($item_copy)
 
+			if($item_copy.length == 0){
+				$.getJSON('/chat-list-item', {'chat_id': chat_id}, function(data){
+					$item = $('<div/>').html(data['chat-list-item']).contents()
+					$('#chat-list').prepend($item)
+				})
 
+			} else {
+				$item_copy.find('.new-message .new-message-dot').css('display', 'block')
+				$('#chat-list-' + chat_id).remove()
+				$('#chat-list').prepend($item_copy)
+			}
+			
 			open_ind = $.inArray(chat_id.toString(), open_chats)
 
 			if(open_ind != -1){

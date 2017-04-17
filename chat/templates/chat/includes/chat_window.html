@@ -3,7 +3,7 @@
 {% else %}
 <div class="chat-window" id="chat-{{chat.id}}">
 {% endif %}
-	<div class="chat-top">
+	<div class="chat-top {{chat.topic.color}}">
 		<p class="chat-top-text">{{chat.topic.text}}</p>
 		<div class="chat-window-buttons">
 			{% if chat.id == None %}
