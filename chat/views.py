@@ -143,6 +143,12 @@ def open_chat_window(request):
 
 	chat_id = request.GET.get('id')
 	chat = Chat.objects.get(id=chat_id)
+
+	if chat.unseen_by == request.user.user_profile:
+		chat.unseen_by = None
+
+	chat.save()
+
 	return JsonResponse({'chat-window':chat_window(request, chat)})
 
 def new_chat_window(request):

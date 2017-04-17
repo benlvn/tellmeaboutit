@@ -15,7 +15,7 @@ class Chat(models.Model):
 	topic = models.ForeignKey(Topic, related_name="chats")
 	outside_user = models.ForeignKey(Profile, related_name="chats_joined")
 	updated_at = models.DateTimeField()
-	unseen_by = models.ForeignKey(Profile, null=True, related_name="unseen_messages")
+	unseen_by = models.ForeignKey(Profile, null=True, blank=True, related_name="unseen_messages")
 
 class Message(models.Model):
 	chat = models.ForeignKey(Chat, related_name="messages")

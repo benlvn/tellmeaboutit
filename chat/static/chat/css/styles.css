@@ -224,7 +224,6 @@ body {
 }
 
 .new-message {
-	display: inline-block;
 	height: 100%;
 	margin: 0px;
 	width: 70px;
