@@ -1,0 +1,8 @@
+*.pyc
+*~
+colors.mhtml
+experiment-files
+tmai.sublime-project
+tmai.sublime-workspace
+db.sqlite3
+.DS_Store
